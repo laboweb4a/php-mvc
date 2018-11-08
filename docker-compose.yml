@@ -1,0 +1,35 @@
+version: "3.3"
+services:
+    mariadb:
+        image: mariadb:10.2
+        container_name: wesic-mariadb
+        environment:
+          MYSQL_ROOT_HOST: '%'
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_USER: dbuser
+          MYSQL_PASSWORD: userpass
+        volumes:
+          - .docker/database/:/docker-entrypoint-initdb.d/
+        ports:
+          - 3306:3306
+    php:
+        build:
+          context: .docker/
+          dockerfile: Dockerfile
+        links:
+         - mariadb:db
+        volumes:
+          - ./:/var/www/html/
+          - .docker/php/apache2/apache2.conf:/etc/apache2/apache2.conf
+          - .docker/logs:/var/log/apache2/
+        ports:
+          - "80:80"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:4.7.5-1
+        container_name: wesic-phpmyadmin
+        links:
+         - mariadb:db
+        environment:
+         - MYSQL_ROOT_PASSWORD=root        
+        ports:
+         - "8081:80"

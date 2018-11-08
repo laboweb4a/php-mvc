@@ -2,7 +2,7 @@ version: "3.3"
 services:
     mariadb:
         image: mariadb:10.2
-        container_name: wesic-mariadb
+        container_name: php-mvc-mariadb
         environment:
           MYSQL_ROOT_HOST: '%'
           MYSQL_ROOT_PASSWORD: root
@@ -23,10 +23,10 @@ services:
           - .docker/php/apache2/apache2.conf:/etc/apache2/apache2.conf
           - .docker/logs:/var/log/apache2/
         ports:
-          - "80:80"
+          - "8080:80"
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:4.7.5-1
-        container_name: wesic-phpmyadmin
+        container_name: php-mvc-phpmyadmin
         links:
          - mariadb:db
         environment:

@@ -1,4 +1,3 @@
-NAME = wesic/devtool
 VERSION = 0.0.1
 
 .PHONY: up

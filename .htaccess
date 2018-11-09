@@ -7,5 +7,7 @@
 
 	RewriteRule . index.php [L]
 
+    ErrorDocument 404 /404
+
 </IfModule>
  

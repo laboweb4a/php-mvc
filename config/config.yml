@@ -1,0 +1,6 @@
+db:
+  host: localhost
+  database: php-mvc 
+  user: username
+  password: password
+  port: 3306

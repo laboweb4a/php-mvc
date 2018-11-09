@@ -1,0 +1,35 @@
+home:
+  path: 'home'
+  controller: HomeController
+  action: index
+  method: 'GET'
+
+articles:
+  path: 'articles'
+  controller: ArticleController
+  action: index
+  method: 'GET'
+
+newArticle:
+  path: 'articles/new'
+  controller: ArticleController
+  action: post
+  method: 'POST'
+
+blog:
+  path: 'blog/articles/new'
+  controller: ArticleController
+  action: new
+  method: 'GET'
+
+404:
+  path: '404'
+  controller: ErrorController
+  action: notFound
+  method: 'GET'
+
+index:
+  path: ''
+  controller: HomeController
+  action: index
+  method: 'GET'

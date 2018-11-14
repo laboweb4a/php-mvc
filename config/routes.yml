@@ -33,3 +33,9 @@ index:
   controller: HomeController
   action: index
   method: 'GET'
+
+user:
+  path: 'user'
+  controller: UserController
+  action: index
+  method: 'GET'

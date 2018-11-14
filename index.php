@@ -1,26 +1,39 @@
 <?php
 
+require_once('config/config.php');
+
+function autoloader($class)
+{
+    if (file_exists("./core/".$class.".php")) {
+        include "core/".$class.".php";
+    } elseif (file_exists("./models/".$class.".php")) {
+        include "models/".$class.".php";
+    }
+}
+
+spl_autoload_register('autoloader');
+
+
 $uri = $_SERVER['REQUEST_URI'];
 
-$uri = ltrim($uri, '/');
-
-$routes = yaml_parse_file('config/routes.yml');
-$config = yaml_parse_file('config/config.yml');
+$uri = trim($uri, '/');
 
 $uriExploded = explode('?', $uri);
 
 $uri = $uriExploded[0];
-$query = $uriExploded[1];
 
 $matched = false;
 
-$args['POST'] = $_POST;
-$args['GET'] = $_GET;
+$args = [
+    "POST"=>$_POST,
+    "GET"=>$_GET
+];
+
+
 
 foreach ($routes as $name => $infos) {
-    if (preg_match('%^'.$uri.'$%', $infos['path'])) {
-        
-        if($_SERVER['REQUEST_METHOD'] !== $infos['method']){
+    if ($uri === $infos['path']) {
+        if ($_SERVER['REQUEST_METHOD'] !== $infos['method']) {
             $matched = false;
             break;
         }
@@ -42,14 +55,4 @@ foreach ($routes as $name => $infos) {
 
 if (!$matched) {
     header('Location: /404');
-}
-
-function dump($var){
-    echo "<pre>";
-    var_dump($var);
-    die();
-}
-function gentle_dump($var){
-    echo "<pre>";
-    var_dump($var);
 }

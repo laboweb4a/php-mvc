@@ -4,7 +4,6 @@ services:
         image: mariadb:10.2
         container_name: php-mvc-mariadb
         environment:
-          MYSQL_ROOT_HOST: '%'
           MYSQL_ROOT_PASSWORD: root
           MYSQL_USER: dbuser
           MYSQL_PASSWORD: userpass
